@@ -1,0 +1,105 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+  <link rel="import" href="../../packages/core_elements/core_scaffold.html">
+  <link rel="import" href="../../packages/core_elements/core_menu.html">
+  <link rel="import" href="../../packages/core_elements/core_animated_pages.html">
+  <link rel="import" href="../../packages/core_elements/core_transition.html">
+  <link rel="import" href="../../packages/paper_elements/paper_item.html">
+  <link rel="import" href="../../packages/paper_elements/paper_shadow.html">
+  <link rel="import" href="../../packages/paper_elements/roboto.html">
+  
+<polymer-element name="main-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      core-animated-pages {
+  width: 95%;
+  height: 95%;
+  -webkit-user-select: none;
+  overflow: hidden;
+}
+
+#mainPanel {
+  background-color: #F9FF9A;
+}
+
+#scaffold /deep/ core-drawer-panel {
+  background-color: green;
+}
+
+core-animated-pages > * {
+  border-radius: 5px;
+  font-size: 50px;
+  background-color: #ffffff;
+}
+
+
+core-menu {
+  color: rgb(240,192,245); /*#01579b;*/
+  margin: 10px 0 0 0;
+}
+
+core-menu > paper-item {
+  color:  rgb(0, 158, 152);
+  transition: all 300ms ease-in-out;
+}
+
+core-menu > paper-item.core-selected {
+  background: rgb(219, 157, 255);
+  color: white;
+}
+
+@media all and (max-width: 480px) {
+  core-animated-pages {
+    width: 100%;
+    height: 100%;
+  }
+}      
+    </style>
+    
+    <!-- Template content here -->
+    <core-scaffold id="scaffold">
+      <nav>
+        <core-toolbar><span>Single Page Polymer</span></core-toolbar>
+  
+          <core-menu valueattr="hash" selected="{{route}}" on-core-select="{{menuItemSelected}}">
+            <template repeat="{{page in pages }}">
+<!--               <paper-item hash="{{page.hash}}" noink> -->
+<!--                   <core-icon icon="label{{route != page.hash ? '-outline' : ''}}"></core-icon> -->
+<!--                   <a href="#{{page['hash']}}">{{page['name']}}</a> -->
+<!--               </paper-item> -->
+
+
+<!--               <paper-item noink icon="label[[(page['hash'] == 'one') ? '-outline' : '']]" label="{{page['name']}}"> -->
+              <paper-item noink icon="label{{route != page['index'] ? '-outline' : ''}}" label="{{page['name']}}">
+                <a _href="#{{page['hash']}}"></a>
+              </paper-item>
+            </template>
+          </core-menu>
+      </nav>
+
+      <!-- flex makes the bar span across the top of the main content area -->
+      <core-toolbar tool flex>
+        <!-- flex spaces this element and justifies the icons to the right-side -->
+        <div flex></div>
+        <core-icon-button icon="refresh"></core-icon-button>
+        <core-icon-button icon="add"></core-icon-button>
+      </core-toolbar>
+      
+      <div id="mainPanel" layout horizontal center-center fit >
+        <core-animated-pages selected="{{route}}" valueattr="hash"
+                             transitions="cross-fade">
+          <template repeat="{{page in pages}}">
+            <paper-shadow z="1" hash="{{page['hash']}}" layout vertical center-center>
+              <div cross-fade>{{page['name']}}</div>
+            </paper-shadow>
+          </template>
+        </core-animated-pages>
+      </div>
+  
+    </core-scaffold>
+  </template>
+  <script type="application/dart" src="main_app.dart"></script>
+</polymer-element>
