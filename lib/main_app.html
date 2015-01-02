@@ -2,10 +2,17 @@
 <link rel="import" href="../../packages/polymer/polymer.html">
   <link rel="import" href="../../packages/core_elements/core_scaffold.html">
   <link rel="import" href="../../packages/core_elements/core_menu.html">
+  <link rel="import" href="../../packages/core_elements/core_submenu.html">
   <link rel="import" href="../../packages/core_elements/core_animated_pages.html">
   <link rel="import" href="../../packages/core_elements/core_transition.html">
+  <link rel="import" href="../../packages/core_elements/core_icons.html">
+  <link rel="import" href="../../packages/core_elements/social_icons.html">
   <link rel="import" href="../../packages/paper_elements/paper_item.html">
   <link rel="import" href="../../packages/paper_elements/paper_shadow.html">
+  <link rel="import" href="../lib/gotit_level1.html">
+  <link rel="import" href="../lib/play_computer.html">
+  <link rel="import" href="../lib/play_human.html">
+  <link rel="import" href="../lib/play_blockly.html">
   <link rel="import" href="../../packages/paper_elements/roboto.html">
   
 <polymer-element name="main-app">
@@ -21,34 +28,51 @@
   overflow: hidden;
 }
 
-#mainPanel {
+#pagePanel {
   background-color: #F9FF9A;
 }
 
-#scaffold /deep/ core-drawer-panel {
-  background-color: green;
+#scaffold /deep/ core-toolbar {
+  background-color:  #26E7CA;
+  color: #fff;
+}
+
+
+#scaffold /deep/ [drawer] {
+  box-shadow: none;
 }
 
 core-animated-pages > * {
   border-radius: 5px;
   font-size: 50px;
-  background-color: #ffffff;
+  background-color: yellow;
 }
 
 
 core-menu {
-  color: rgb(240,192,245); /*#01579b;*/
+  color: rgb(0, 158, 152); /*#01579b;*/
   margin: 10px 0 0 0;
 }
 
-core-menu > paper-item {
-  color:  rgb(0, 158, 152);
-  transition: all 300ms ease-in-out;
+core-menu core-submenu.core-selected {
+  background: rgb(98, 194, 253); // rgb(219, 157, 255);
+  color: white;
+  font-size: 1.5em;
 }
 
-core-menu > paper-item.core-selected {
-  background: rgb(219, 157, 255);
+core-menu paper-item {
+  color:  rgb(0, 158, 152);
+  transition: all 200ms ease-in;
+}
+
+core-menu core-submenu.core-selected  paper-item.core-selected {
+  background: rgb(98, 194, 253); //rgb(219, 157, 255);
   color: white;
+  font-size: 1.2em;
+}
+
+.big {
+  font-size:2em;
 }
 
 @media all and (max-width: 480px) {
@@ -62,20 +86,20 @@ core-menu > paper-item.core-selected {
     <!-- Template content here -->
     <core-scaffold id="scaffold">
       <nav>
-        <core-toolbar><span>Single Page Polymer</span></core-toolbar>
+        <core-toolbar class="medium-tall"><span class="bottom big">Got it!</span></core-toolbar>
   
-          <core-menu valueattr="hash" selected="{{route}}" on-core-select="{{menuItemSelected}}">
-            <template repeat="{{page in pages }}">
-<!--               <paper-item hash="{{page.hash}}" noink> -->
-<!--                   <core-icon icon="label{{route != page.hash ? '-outline' : ''}}"></core-icon> -->
-<!--                   <a href="#{{page['hash']}}">{{page['name']}}</a> -->
-<!--               </paper-item> -->
-
-
-<!--               <paper-item noink icon="label[[(page['hash'] == 'one') ? '-outline' : '']]" label="{{page['name']}}"> -->
-              <paper-item noink icon="label{{route != page['index'] ? '-outline' : ''}}" label="{{page['name']}}">
-                <a _href="#{{page['hash']}}"></a>
-              </paper-item>
+          <core-menu valueattr="hash" selected="{{route}}" >
+            <template repeat="{{page in pages}}">
+                <!--<paper-item icon="{{page['icon']}}" label="{{page['name']}}">-->
+                <core-submenu icon="{{page['icon']}}" label="{{page['name']}}" on-core-select="{{submenuItemSelected}}">
+                  <a _href="#{{page['hash']}}"></a>
+                  <paper-item icon="{{page['icon']}}" label="Level 1">
+                    <a _href="#{{page['hash']}}L1"></a>
+                  </paper-item>
+                  <paper-item icon="{{page['icon']}}" label="Level 2">
+                    <a _href="#{{page['hash']}}L2"></a>
+                  </paper-item>
+                </core-submenu>
             </template>
           </core-menu>
       </nav>
@@ -83,17 +107,17 @@ core-menu > paper-item.core-selected {
       <!-- flex makes the bar span across the top of the main content area -->
       <core-toolbar tool flex>
         <!-- flex spaces this element and justifies the icons to the right-side -->
-        <div flex></div>
+        <div flex>{{title}}</div>
         <core-icon-button icon="refresh"></core-icon-button>
         <core-icon-button icon="add"></core-icon-button>
       </core-toolbar>
       
-      <div id="mainPanel" layout horizontal center-center fit >
+      <div id="pagePanel" layout horizontal center-center fit >
         <core-animated-pages selected="{{route}}" valueattr="hash"
                              transitions="cross-fade">
           <template repeat="{{page in pages}}">
-            <paper-shadow z="1" hash="{{page['hash']}}" layout vertical center-center>
-              <div cross-fade>{{page['name']}}</div>
+            <paper-shadow z="1" id="{{page['hash']}}"  layout vertical center-center>
+              <div cross-fade id="page-holder" style="height:auto">{{page['name']}}</div>
             </paper-shadow>
           </template>
         </core-animated-pages>

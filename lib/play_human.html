@@ -1,0 +1,37 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/paper_elements/paper_fab.html">
+
+<polymer-element name="play-human">
+  <template>
+    <style>
+      :host #page-content {
+        display: block;
+        background-color: pink;
+        border-radius: 5px;
+        width: 100%;
+        font-size: 16px;
+        padding: 30px;
+      }
+    </style>
+    <!-- Template content here -->
+    <div id="page-content" cross-fade>
+      <h1>Two Player - Red v Blue</h1>
+      
+      <h2>Rules</h2>
+      
+      <p>
+        In <i>Got it!</i>, you take turns to add to the running total. The player that reaches
+        the target first is the winner.
+      </p>
+      
+      <p>
+        Watch out for sneaky rule changes as you go through the levels. 
+      </p>
+      
+      <paper-fab icon="arrow-forward" title="arrow-forward" role="button" tabindex="0" aria-label="arrow-forward"></paper-fab>
+
+    </div>
+  </template>
+  <script type="application/dart" src="play_human.dart"></script>
+</polymer-element>

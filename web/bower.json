@@ -1,0 +1,17 @@
+{
+  "name": "web",
+  "version": "0.0.0",
+  "homepage": "https://github.com/gmp26/PolymerDartSPA",
+  "authors": [
+    "gmp26 <gmp26@cam.ac.uk>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

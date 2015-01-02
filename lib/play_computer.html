@@ -1,0 +1,61 @@
+<!-- import polymer-element's definition -->
+<link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/paper_elements/paper_fab.html">
+<link rel="import" href="../../packages/core_elements/core_media_query.html">
+
+<polymer-element name="play-computer">
+  <template>
+    <core-media-query query="max-width: 640px" queryMatches="{{phoneScreen}}"></core-media-query>
+    <style>
+      :host #page-content {
+        display: block;
+        background-color: rgb(45, 108, 103);
+        color: white;
+        height: 100%;
+        font-size: {{phoneScreen ? '14px' : '18px' }};
+        padding: 30px;
+        box-sizing: border-box;
+        top: 0px;
+        left: 0px;
+        position: absolute;
+      }
+      :host .small {
+        font-size:12px;
+      }
+      :host a {
+        color: white;
+        text-decoration: none;
+      }
+      :host a:active {
+        font-size: 1.2em;
+      }
+    </style>
+    <!-- Template content here -->
+    <div id="page-content" cross-fade>
+      <h1>Play the computer</h1>
+      
+      <h2>Rules</h2>
+      
+      <p>
+        In <i>Got it!</i>, you take turns to add to the running total. The player that reaches
+        the target first is the winner.
+      </p>
+      
+      <p>
+        Watch out for sneaky rule changes as you go through the levels. You'll take turns
+        to go first.
+      </p>
+      
+      <p>
+        The computer is pretty good at this game, but has the odd lapse in concentration.
+      </p>
+      
+      <div style="display:flex;flex-direction:row;width:100%">
+      <span style="flex-grow:1"> </span>
+      <paper-fab on-click="{{play}}" icon="arrow-forward" title="arrow-forward" role="button" tabindex="0" aria-label="arrow-forward"></paper-fab>
+      <b>Play</b>
+      </div>
+    </div>
+  </template>
+  <script type="application/dart" src="play_computer.dart"></script>
+</polymer-element>

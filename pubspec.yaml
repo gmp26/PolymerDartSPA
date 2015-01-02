@@ -1,13 +1,13 @@
-name: PolymerDartSPA
+name: GotitPolymerDart
 version: 0.0.2
 description: Single Page Polymer Dart app loosely following https://www.polymer-project.org/articles/spa.html
 environment:
   sdk: '>=1.0.0 <2.0.0'
 dependencies:
   browser: any
+  core_elements: any
   paper_elements: '>=0.5.0 <0.6.0'
   polymer: '>=0.15.0 <0.16.0'
-  polymer_expressions: any
 transformers:
 - polymer:
     entry_points: web/index.html
