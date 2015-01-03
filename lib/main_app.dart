@@ -72,7 +72,7 @@ class MainApp extends PolymerElement {
   
   List<PageModel> ipages = [];
   
-  @observable List<PageModel> pages;
+  @published List<PageModel> pages;
 
   List<Map<String,dynamic>> menus = toObservable([
     { 'name': 'Single player', 
@@ -150,6 +150,23 @@ class MainApp extends PolymerElement {
     
   }
 
+  void installPage(PageModel page) {
+    String elName = page.content;
+    Element ps = this.$[page.hash] as Element;
+    if(ps == null)
+      print("Page container missing hash="+page.hash);
+    else { 
+      while (ps.childNodes.length > 0) ps.firstChild.remove();
+      var el = (new Element.tag(elName));
+      el.setAttribute('foo', 'bar');
+      ps.append(el);
+    }
+    if(page.subContent != null)
+      for(var p in page.subContent) {
+        installPage(p);
+      }
+  }
+  
   /// Called when an instance of main-app is inserted into the DOM.
   attached() {
     super.attached();
@@ -160,16 +177,7 @@ class MainApp extends PolymerElement {
     init();
     
     for(var page in pages) {
-      String elName = page.content;
-      Element ps = this.$[page.hash] as Element;
-      if(ps == null)
-        print("Page container missing hash="+page.hash);
-      else { 
-        while (ps.childNodes.length > 0) ps.firstChild.remove();
-        var el = (new Element.tag(elName));
-        el.setAttribute('foo', 'bar');
-        ps.append(el);
-      }
+      installPage(page);
     }
     
     

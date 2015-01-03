@@ -28,8 +28,8 @@
         display: block;
       }
       core-animated-pages {
-  width: 95%;
-  height: 95%;
+  width: 100%;
+  height: 100%;
   -webkit-user-select: none;
   overflow: hidden;
 }
@@ -51,9 +51,14 @@
 core-animated-pages > * {
   border-radius: 5px;
   font-size: 50px;
+  color: white;
   background-color: yellow;
 }
 
+core-animated-pages .holder {
+  width:100%;
+  height: 100%;
+}
 
 core-menu {
   color: rgb(0, 158, 152); /*#01579b;*/
@@ -123,8 +128,8 @@ core-menu core-submenu.core-selected  paper-item.core-selected {
                              transitions="cross-fade">
           <template repeat="{{page in pages}}">
             <template repeat="{{p in page.subContent}}">
-              <paper-shadow z="1" id="{{p.hash}}"  layout vertical center-center>
-                <div cross-fade id="page-holder" style="height:auto">{{p.name}}</div>
+              <paper-shadow z="1" id="{{p.hash}}" class="holder" layout vertical center-center>
+                <div cross-fade id="page-holder">{{p.name}}</div>
               </paper-shadow>
             </template>
           </template>
