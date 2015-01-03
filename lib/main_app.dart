@@ -13,6 +13,44 @@ import 'package:GotitPolymerDart/page_model.dart';
 
 class MainApp extends PolymerElement {
 
+
+  void init() {
+
+    PageModel g1L1 = new PageModel(
+        'Level 1', 'social:person', 'G1L1', 'game1-level1', []
+        );
+    PageModel g1L2 = new PageModel(
+        'Level 2', 'social:person', 'G1L2', 'game1-level2', []
+        );
+    PageModel g1L3 = new PageModel(
+        'Play Blockly', 'social:person', 'G1L3', 'play-blockly', []
+        );
+    ipages.add(new PageModel(
+      'Single player', 'social:person', 'G1', 'play-computer', [g1L1, g1L2, g1L3]
+      ));
+    
+    PageModel g2L1 = new PageModel(
+        'Level 1', 'social:people', 'G2L1', 'game2-level1', []
+        );
+    PageModel g2L2 = new PageModel(
+        'Level 2', 'social:people', 'G2L2', 'game2-level2', []
+        );
+    ipages.add(new PageModel(
+      'Two player', 'social:people', 'G2', 'play-human', [g2L1, g2L2]
+      ));
+    
+    PageModel g3L1 = new PageModel(
+        'Editor', 'social:people', 'G3L1', 'game3-level1', []
+        );
+    ipages.add(new PageModel(
+      'Code Blockly', 'account-balance-wallet', 'G3', 'code-blockly', [g3L1]
+      ));
+    
+    pages = toObservable(ipages);
+
+  }
+
+  
   @observable dynamic route;
 
   /*
@@ -34,7 +72,7 @@ class MainApp extends PolymerElement {
   
   List<PageModel> ipages = [];
   
-  List<PageModel> pages;
+  @observable List<PageModel> pages;
 
   List<Map<String,dynamic>> menus = toObservable([
     { 'name': 'Single player', 
@@ -73,42 +111,6 @@ class MainApp extends PolymerElement {
     }
   ]);
 
-  void init() {
-
-    PageModel g1L1 = new PageModel(
-        'Level 1', 'social:person', 'G1L1', 'game1-level1', []
-        );
-    PageModel g1L2 = new PageModel(
-        'Level 2', 'social:person', 'G1L2', 'game1-level2', []
-        );
-    PageModel g1L3 = new PageModel(
-        'Play Blockly', 'social:person', 'G1L3', 'play-blockly', []
-        );
-    ipages.add(new PageModel(
-      'Single player', 'social:person', 'G1', 'play-computer', [g1L1, g1L2, g1L3]
-      ));
-    
-    PageModel g2L1 = new PageModel(
-        'Level 1', 'social:people', 'G2L1', 'game2-level1', []
-        );
-    PageModel g2L2 = new PageModel(
-        'Level 2', 'social:people', 'G2L2', 'game2-level2', []
-        );
-    ipages.add(new PageModel(
-      'Two player', 'social:people', 'G2', 'play-human', [g2L1, g2L2]
-      ));
-    
-    PageModel g3L1 = new PageModel(
-        'Editor', 'social:people', 'G3L1', 'game3-level1', []
-        );
-    ipages.add(new PageModel(
-      'Code Blockly', 'account-balance-wallet', 'G3', 'code-blockly', [g3L1]
-      ));
-    
-    pages = toObservable(ipages);
-
-  }
-
   void menuItemSelected(Event e, var detail, Node sender) {
     setRouteTitle(route);
     if(detail['isSelected']) {
@@ -144,9 +146,22 @@ class MainApp extends PolymerElement {
   MainApp.created() : super.created() {
     print('created');
     
+
+    
+  }
+
+  /// Called when an instance of main-app is inserted into the DOM.
+  attached() {
+    super.attached();
+    
+    print("attached");
+     
+    
+    init();
+    
     for(var page in pages) {
       String elName = page.content;
-      dynamic ps = this.$[page.hash] as PaperShadow;
+      Element ps = this.$[page.hash] as Element;
       if(ps == null)
         print("Page container missing hash="+page.hash);
       else { 
@@ -157,27 +172,8 @@ class MainApp extends PolymerElement {
       }
     }
     
-  }
-
-  /// Called when an instance of main-app is inserted into the DOM.
-  attached() {
-    super.attached();
     
-
-//    for(var page in pages) {
-//      String elName = page['content'];
-//      PaperShadow ps = this.$[page['hash']] as PaperShadow;
-//      if(ps == null)
-//        print("Page container missing");
-//      else { 
-//        while (ps.childNodes.length > 0) ps.firstChild.remove();
-//        var el = (new Element.tag(elName));
-//        el.setAttribute('foo', 'bar');
-//        ps.append(el);
-//      }
-//    }
-//    
-        // quick and dirty initial routing from hash
+    // quick and dirty initial routing from hash
     //routeToLocation(null);
     
     window.onHashChange.listen(routeToLocation);
@@ -204,11 +200,6 @@ class MainApp extends PolymerElement {
   /// property observers set up, event listeners attached).
   ready() {
     print('ready');
-
-    print('attached');
-    
-    init();
-    
   } 
   
 }

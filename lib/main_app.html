@@ -96,25 +96,24 @@ core-menu core-submenu.core-selected  paper-item.core-selected {
       <nav>
         <core-toolbar class="medium-tall"><span class="bottom big">Got it!</span></core-toolbar>
   
-          <core-menu valueattr="hash" selected="{{route}}"  on-core-select="{{menuItemSelected}}">
-            <template repeat="{{page in pages}}">
-              <core-submenu id="{{page.hash}}" icon="{{page.icon}}" label="{{page.name}}" >
-                <a _href="#{{page.hash}}"></a>
-                <template repeat="{{p in page.subContent}}">
-                  <paper-item id="menu{{p.hash}}" icon="{{p.icon}}" label="{{p.name}}">
-                    <a _href="#{{p.hash}}"></a>
-                  </paper-item>
-                </template>
-              </core-submenu>
-            </template>
-          </core-menu>
+        <core-menu valueattr="hash" selected="{{route}}"  on-core-select="{{menuItemSelected}}">
+          <template repeat="{{page in pages}}">
+            <core-submenu id="{{page.hash}}" icon="{{page.icon}}" label="{{page.name}}" >
+              <a _href="#{{page.hash}}"></a>
+              <template repeat="{{p in page.subContent}}">
+                <paper-item id="menu{{p.hash}}" icon="{{p.icon}}" label="{{p.name}}">
+                  <a _href="#{{p.hash}}"></a>
+                </paper-item>
+              </template>
+            </core-submenu>
+          </template>
+        </core-menu>
       </nav>
 
       <!-- flex makes the bar span across the top of the main content area -->
       <core-toolbar tool flex>
         <!-- flex spaces this element and justifies the icons to the right-side -->
         <div flex>{{routeTitle}}</div>
-        <core-icon-button icon="refresh"></core-icon-button>
         <core-icon-button icon="add"></core-icon-button>
         <core-icon-button icon="fullscreen"></core-icon-button>
       </core-toolbar>
