@@ -127,11 +127,15 @@ core-menu core-submenu.core-selected  paper-item.core-selected {
         <core-animated-pages selected="{{route}}" valueattr="hash"
                              transitions="cross-fade">
           <template repeat="{{page in pages}}">
+            <div id="foo{{page.hash}}">
+
             <template repeat="{{p in page.subContent}}">
               <paper-shadow z="1" id="{{p.hash}}" class="holder" layout vertical center-center>
                 <div cross-fade id="page-holder">{{p.name}}</div>
               </paper-shadow>
             </template>
+
+            </div>
           </template>
         </core-animated-pages>
       </div>

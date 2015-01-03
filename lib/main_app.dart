@@ -16,35 +16,35 @@ class MainApp extends PolymerElement {
 
   void init() {
 
-    PageModel g1L1 = new PageModel(
+    PageModel g1L1 = toObservable(new PageModel(
         'Level 1', 'social:person', 'G1L1', 'game1-level1', []
-        );
-    PageModel g1L2 = new PageModel(
+        ));
+    PageModel g1L2 = toObservable(new PageModel(
         'Level 2', 'social:person', 'G1L2', 'game1-level2', []
-        );
-    PageModel g1L3 = new PageModel(
+        ));
+    PageModel g1L3 = toObservable(new PageModel(
         'Play Blockly', 'social:person', 'G1L3', 'play-blockly', []
-        );
-    ipages.add(new PageModel(
+        ));
+    ipages.add(toObservable(new PageModel(
       'Single player', 'social:person', 'G1', 'play-computer', [g1L1, g1L2, g1L3]
-      ));
+      )));
     
-    PageModel g2L1 = new PageModel(
+    PageModel g2L1 = toObservable(new PageModel(
         'Level 1', 'social:people', 'G2L1', 'game2-level1', []
-        );
-    PageModel g2L2 = new PageModel(
+        ));
+    PageModel g2L2 = toObservable(new PageModel(
         'Level 2', 'social:people', 'G2L2', 'game2-level2', []
-        );
-    ipages.add(new PageModel(
+        ));
+    ipages.add(toObservable(new PageModel(
       'Two player', 'social:people', 'G2', 'play-human', [g2L1, g2L2]
-      ));
+      )));
     
-    PageModel g3L1 = new PageModel(
+    PageModel g3L1 = toObservable(new PageModel(
         'Editor', 'social:people', 'G3L1', 'game3-level1', []
-        );
-    ipages.add(new PageModel(
+        ));
+    ipages.add(toObservable(new PageModel(
       'Code Blockly', 'account-balance-wallet', 'G3', 'code-blockly', [g3L1]
-      ));
+      )));
     
     pages = toObservable(ipages);
 
@@ -72,7 +72,7 @@ class MainApp extends PolymerElement {
   
   List<PageModel> ipages = [];
   
-  @published List<PageModel> pages;
+  @observable List<PageModel> pages;
 
   List<Map<String,dynamic>> menus = toObservable([
     { 'name': 'Single player', 
@@ -146,13 +146,11 @@ class MainApp extends PolymerElement {
   MainApp.created() : super.created() {
     print('created');
     
-
-    
   }
 
   void installPage(PageModel page) {
     String elName = page.content;
-    Element ps = this.$[page.hash] as Element;
+    dynamic ps = $[page.hash];
     if(ps == null)
       print("Page container missing hash="+page.hash);
     else { 
@@ -177,7 +175,7 @@ class MainApp extends PolymerElement {
     init();
     
     for(var page in pages) {
-      installPage(page);
+      this.installPage(page);
     }
     
     
