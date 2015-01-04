@@ -7,15 +7,31 @@
     <style>
       :host #page-content {
         display: block;
-        background-color: pink;
-        border-radius: 5px;
+        background-color: rgb(145, 131, 199); //rgb(45, 108, 103);
+        color: white;
         width: 100%;
-        font-size: 16px;
+        height: 100%;
+        font-size: {{phoneScreen ? '14px' : '18px' }};
         padding: 30px;
+        box-sizing: border-box;
+        top: 0px;
+        left: 0px;
+        position: absolute;
       }
+      :host .small {
+        font-size:12px;
+      }
+      :host a {
+        color: white;
+        text-decoration: none;
+      }
+      :host a:active {
+        font-size: 1.2em;
+      }
+
     </style>
     <!-- Template content here -->
-    <div id="page-content" cross-fade>
+    <div id="page-content" >
       <h1>Two Player - Red v Blue</h1>
       
       <h2>Rules</h2>

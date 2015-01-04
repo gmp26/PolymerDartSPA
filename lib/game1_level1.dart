@@ -7,6 +7,28 @@ import 'package:polymer/polymer.dart';
 
 class Game1Level1 extends PolymerElement {
 
+  @observable bool phoneScreen = false;
+  @observable dynamic target = 23;
+  @observable dynamic total = 0;
+
+  
+  void addOne() {
+    total += 1;
+  }
+  
+  void addTwo() {
+    total += 2;
+  }
+  
+  void addThree() {
+    total += 3;
+  }
+  
+  void addFour() {
+    total += 4;
+  }
+  
+  
   /// Constructor used to create instance of Game1Level1.
   Game1Level1.created() : super.created() {
   }

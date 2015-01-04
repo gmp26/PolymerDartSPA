@@ -1,16 +1,63 @@
 <!-- import polymer-element's definition -->
 <link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="../../packages/paper_elements/paper_button.html">
+<link rel="import" href="../../packages/core_elements/core_media_query.html">
 
 <polymer-element name="game1-level1">
   <template>
+    <core-media-query query="max-width: 640px" queryMatches="{{phoneScreen}}"></core-media-query>
     <style>
-      :host {
+      :host #page-content {
         display: block;
+        background-color: rgb(145, 131, 199); //rgb(45, 108, 103);
+        color: white;
+        width: 100%;
+        height: 100%;
+        font-size: {{phoneScreen ? '14px' : '24px' }};
+        padding: 30px;
+        box-sizing: border-box;
+        top: 0px;
+        left: 0px;
+        position: absolute;
+      }
+      :host .small {
+        font-size:12px;
+      }
+      :host a {
+        color: white;
+        text-decoration: none;
+      }
+      :host a:active {
+        font-size: 1.2em;
       }
     </style>
     <!-- Template content here -->
-    <h1>Game 1</h1>
-    <h2>Level 1</h2>
+    <div id="page-content" center-center>
+      <h1>Target {{target}}</h1>    
+  
+      <h1>Total {{total}}</h1>
+  
+      <div layout horizontal style="width:300px;">
+        <div flex layout vertical style="height:300px;">
+          <paper-button style="border-radius:150px" flex raised on-click="{{addOne}}" >
+            +1
+          </paper-button>
+          
+          <paper-button flex raised on-click="{{addTwo}}" >
+            +2
+          </paper-button>
+        </div>
+        <div flex layout vertical>
+          <paper-button flex raised on-click="{{addThree}}" >
+            +3
+          </paper-button>
+          
+          <paper-button flex raised on-click="{{addFour}}" >
+            +4
+          </paper-button>
+        </div>
+      </div>
+    </div>
   </template>
   <script type="application/dart" src="game1_level1.dart"></script>
 </polymer-element>

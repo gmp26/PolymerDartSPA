@@ -7,6 +7,8 @@ import 'package:polymer/polymer.dart';
 
 class PlayHuman extends PolymerElement {
 
+  @observable bool phoneScreen = false;
+
   /// Constructor used to create instance of PlayHuman.
   PlayHuman.created() : super.created() {
   }

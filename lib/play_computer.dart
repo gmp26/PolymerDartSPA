@@ -12,7 +12,7 @@ class PlayComputer extends PolymerElement {
   @observable String small;
   
   void play(event, detail, target) {
-    window.location.href="#G2L2";
+    window.location.href="#G1L1";
   }
   
   

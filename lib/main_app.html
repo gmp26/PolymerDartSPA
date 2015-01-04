@@ -127,8 +127,7 @@
       </core-toolbar>
 
       <div id="pagePanel" layout horizontal center-center fit >
-        <core-animated-pages selected="{{pageIndex}}" valueattr="hash"
-                             transitions="cross-fade">
+        <core-animated-pages selected="{{pageIndex}}" valueattr="hash">
           <template repeat="{{page in pages}}">
             <div id="{{page['hash']}}">
             </div>
