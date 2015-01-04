@@ -26,74 +26,75 @@
     <style>
       :host {
         display: block;
+        color: white;
       }
       core-animated-pages {
-  width: 100%;
-  height: 100%;
-  -webkit-user-select: none;
-  overflow: hidden;
-}
+        width: 100%;
+        height: 100%;
+        -webkit-user-select: none;
+        overflow: hidden;
+      }
+      
+      #pagePanel {
+        background-color: #F9FF9A;
+      }
+      
+      #scaffold /deep/ core-toolbar {
+        background-color:  #26E7CA;
+        color: #fff;
+      }
+      
+      
+      #scaffold /deep/ [drawer] {
+        box-shadow: none;
+        background-color: #FFD569;
+      }
+      
+      core-animated-pages > * {
+        //border-radius: 5px;
+        font-size: 50px;
+        color: white;
+        background-color: rgb(242, 146, 129);
+      }
+      
+      core-animated-pages .holder {
+        width:100%;
+        height: 100%;
+      }
+      
+      core-menu {
+        //color: rgb(0, 158, 152); /*#01579b;*/
+        margin: 10px 0 0 0;
+      }
+      
+      core-menu core-submenu.core-selected {
+        background: rgb(98, 194, 253); // rgb(219, 157, 255);
+        color: white;
+        font-size: 1.5em;
+      }
+      
+      core-menu paper-item {
+        //color:  rgb(0, 158, 152);
+        transition: all 200ms ease-in;
+      }
+      
+      core-menu core-submenu.core-selected  paper-item.core-selected {
+        background: rgb(98, 194, 253); //rgb(219, 157, 255);
+        color: white;
+        font-size: 1.2em;
+      }
+      
+      .big {
+        font-size:2em;
+      }
+      
+      @media all and (max-width: 200px) {
+        core-animated-pages {
+          width: 100%;
+          height: 100%;
+        }
+      }   
 
-#pagePanel {
-  background-color: #F9FF9A;
-}
-
-#scaffold /deep/ core-toolbar {
-  background-color:  #26E7CA;
-  color: #fff;
-}
-
-
-#scaffold /deep/ [drawer] {
-  box-shadow: none;
-}
-
-core-animated-pages > * {
-  border-radius: 5px;
-  font-size: 50px;
-  color: white;
-  background-color: yellow;
-}
-
-core-animated-pages .holder {
-  width:100%;
-  height: 100%;
-}
-
-core-menu {
-  color: rgb(0, 158, 152); /*#01579b;*/
-  margin: 10px 0 0 0;
-}
-
-core-menu core-submenu.core-selected {
-  background: rgb(98, 194, 253); // rgb(219, 157, 255);
-  color: white;
-  font-size: 1.5em;
-}
-
-core-menu paper-item {
-  color:  rgb(0, 158, 152);
-  transition: all 200ms ease-in;
-}
-
-core-menu core-submenu.core-selected  paper-item.core-selected {
-  background: rgb(98, 194, 253); //rgb(219, 157, 255);
-  color: white;
-  font-size: 1.2em;
-}
-
-.big {
-  font-size:2em;
-}
-
-/* TODO: find the media queries that actually do something
-@media all and (max-width: 200px) {
-  core-animated-pages {
-    width: 100%;
-    height: 100%;
-  }
-}   
-*/   
     </style>
     
     <!-- Template content here -->
@@ -103,13 +104,15 @@ core-menu core-submenu.core-selected  paper-item.core-selected {
   
         <core-menu valueattr="hash" selected="{{route}}"  on-core-select="{{menuItemSelected}}">
           <template repeat="{{page in pages}}">
-            <core-submenu id="{{page.hash}}" icon="{{page.icon}}" label="{{page.name}}" >
-              <a _href="#{{page.hash}}"></a>
-              <template repeat="{{p in page.subContent}}">
-                <paper-item id="menu{{p.hash}}" icon="{{p.icon}}" label="{{p.name}}">
-                  <a _href="#{{p.hash}}"></a>
+            <core-submenu id="menu{{page['hash']}}" icon="{{page['icon']}}" label="{{page['name']}}" >
+              <a _href="#{{page['hash']}}"></a>
+
+              <template repeat="{{p in page['subContent']}}">
+                <paper-item id="menu{{p['hash']}}" icon="{{p['icon']}}" label="{{p['name']}}">
+                  <a _href="#{{p['hash']}}"></a>
                 </paper-item>
               </template>
+
             </core-submenu>
           </template>
         </core-menu>
@@ -124,18 +127,17 @@ core-menu core-submenu.core-selected  paper-item.core-selected {
       </core-toolbar>
 
       <div id="pagePanel" layout horizontal center-center fit >
-        <core-animated-pages selected="{{route}}" valueattr="hash"
+        <core-animated-pages selected="{{pageIndex}}" valueattr="hash"
                              transitions="cross-fade">
           <template repeat="{{page in pages}}">
-            <div id="foo{{page.hash}}">
-
-            <template repeat="{{p in page.subContent}}">
-              <paper-shadow z="1" id="{{p.hash}}" class="holder" layout vertical center-center>
-                <div cross-fade id="page-holder">{{p.name}}</div>
+            <div id="{{page['hash']}}">
+            </div>
+            <template repeat="{{p in page['subContent']}}">
+              <paper-shadow z="1" id="{{p['hash']}}" class="holder" layout vertical center-center>
+                <div cross-fade id="page-holder">{{p['name']}}</div>
               </paper-shadow>
             </template>
 
-            </div>
           </template>
         </core-animated-pages>
       </div>
