@@ -21,16 +21,24 @@
   </template>
   <script type="application/dart" src="code_blockly.dart"></script>
   <script src="../../packages/browser/dart.js"></script>
+  <script src="../web/acorn/acorn_interpreter.js"></script>
   <script>
+    
     function blocklyLoaded(blockly) {
       // Called once Blockly is fully loaded.
-      window.Blockly = blockly;
-      window.Interpreter = interpreter;
+      window.Coder = {
+        blockly: blockly,
+        foo: function(p) {console.log(p);},
+        run: function() {
+          if(interp = getInterpreter())
+            interp.run();
+        }
+      };
     }
     function initApi(interpreter, scope) {
       // Add an API function for the alert() block.
       var wrapper = function(text) {
-        text = tinitApiext ? text.toString() : '';
+        text = initApi ? text.toString() : '';
         return interpreter.createPrimitive(alert(text));
       };
       interpreter.setProperty(scope, 'alert',
@@ -44,8 +52,8 @@
       interpreter.setProperty(scope, 'prompt',
           interpreter.createNativeFunction(wrapper));
     }
-    function interpreter() {
-      var code = window.Blockly.JavaScript.workspaceToCode();
+    function getInterpreter() {
+      var code = window.Coder.blockly.JavaScript.workspaceToCode();
       if(code) {
       	return new Interpreter(code, initApi);
       }

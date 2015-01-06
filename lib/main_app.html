@@ -22,11 +22,13 @@
   <link rel="import" href="../../packages/paper_elements/roboto.html">
 
 <polymer-element name="main-app">
+  <core-media-query query="max-width: 640px" queryMatches="{{phoneScreen}}"></core-media-query>
   <template>
     <style>
       :host {
         display: block;
         color: white;
+        font-size: {{phoneScreen ? '14px' : '24px' }};
       }
       core-animated-pages {
         width: 100%;

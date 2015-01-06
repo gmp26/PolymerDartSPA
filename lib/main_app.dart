@@ -8,8 +8,11 @@ import 'package:core_elements/core_scaffold.dart';
  */
 @CustomTag('main-app')
 
+
 class MainApp extends PolymerElement {
   
+  @observable bool phoneScreen = false;
+
   /// Constructor used to create instance of MainApp.
   MainApp.created() : super.created() {
     print('created');

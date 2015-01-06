@@ -12,8 +12,9 @@ class CodeBlockly extends PolymerElement {
 
   void run(event, detail, target) {
       print("running");
-      var interp = new JsObject(context['Interpreter']);
-      interp.callMethod('run');
+      var coder = context['Coder'];
+      coder.callMethod('foo',['Hi there']);
+      coder.callMethod('run',[]);
   }
 
   
