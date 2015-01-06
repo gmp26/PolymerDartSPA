@@ -16,13 +16,42 @@
     </style>
     <!-- Template content here -->
     <h2>Code Blockly</h2>
+    <button on-click="{{run}}">Run</button>
     <iframe src="../blockly.html"></iframe>
   </template>
   <script type="application/dart" src="code_blockly.dart"></script>
+  <script src="../../packages/browser/dart.js"></script>
   <script>
     function blocklyLoaded(blockly) {
       // Called once Blockly is fully loaded.
       window.Blockly = blockly;
+      window.Interpreter = interpreter;
+    }
+    function initApi(interpreter, scope) {
+      // Add an API function for the alert() block.
+      var wrapper = function(text) {
+        text = tinitApiext ? text.toString() : '';
+        return interpreter.createPrimitive(alert(text));
+      };
+      interpreter.setProperty(scope, 'alert',
+          interpreter.createNativeFunction(wrapper));
+  
+      // Add an API function for the prompt() block.
+      wrapper = function(text) {
+        text = text ? text.toString() : '';
+        return interpreter.createPrimitive(prompt(text));
+      };
+      interpreter.setProperty(scope, 'prompt',
+          interpreter.createNativeFunction(wrapper));
+    }
+    function interpreter() {
+      var code = window.Blockly.JavaScript.workspaceToCode();
+      if(code) {
+      	return new Interpreter(code, initApi);
+      }
+      else {
+        return null;
+      }
     }
   </script>
 </polymer-element>

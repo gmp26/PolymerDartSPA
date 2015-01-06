@@ -1,12 +1,22 @@
 import 'package:polymer/polymer.dart';
+import 'dart:js';
 
 /**
  * A Polymer code-blockly element.
  */
 @CustomTag('code-blockly')
 
+
 class CodeBlockly extends PolymerElement {
 
+
+  void run(event, detail, target) {
+      print("running");
+      var interp = new JsObject(context['Interpreter']);
+      interp.callMethod('run');
+  }
+
+  
   /// Constructor used to create instance of CodeBlockly.
   CodeBlockly.created() : super.created() {
   }
