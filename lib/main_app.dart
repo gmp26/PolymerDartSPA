@@ -31,9 +31,14 @@ class MainApp extends PolymerElement {
           'hash': 'G1L2',
           'content':'game1-level2'
         },
-        { 'name': 'Play Blockly',
+        { 'name': 'Code Blockly',
           'icon':'social:person', 
           'hash': 'G1L3',
+          'content':'code-blockly'
+        },
+        { 'name': 'Play Blockly',
+          'icon':'social:person', 
+          'hash': 'G1L4',
           'content':'play-blockly'
         }
       ],
